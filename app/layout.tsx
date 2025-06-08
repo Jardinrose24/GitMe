@@ -10,7 +10,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "GitMe - Beautiful GitHub READMEs",
   description: "Create beautiful README files for your GitHub repositories",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
