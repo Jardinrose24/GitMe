@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge"
 import { Github, ArrowLeft, Download, Copy, Eye } from "lucide-react"
 import { generateReadme } from "@/lib/readme-generator"
 import { ReadmePreview } from "@/components/readme-preview"
-import { toast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast"
 
 interface ReadmeData {
   projectName: string
@@ -34,6 +34,8 @@ interface ReadmeData {
 }
 
 export default function GeneratorPage() {
+  const { toast } = useToast()
+
   const [readmeData, setReadmeData] = useState<ReadmeData>({
     projectName: "",
     description: "",
@@ -66,12 +68,6 @@ export default function GeneratorPage() {
     handleInputChange(field, items)
   }
 
-  const handleGenerate = () => {
-    const markdown = generateReadme(readmeData)
-    setGeneratedMarkdown(markdown)
-    setActiveTab("preview")
-  }
-
   const handleCopy = async () => {
     await navigator.clipboard.writeText(generatedMarkdown)
     toast({
@@ -94,6 +90,12 @@ export default function GeneratorPage() {
       title: "Downloaded",
       description: "README.md has been downloaded",
     })
+  }
+
+  const handleGenerate = () => {
+    const markdown = generateReadme(readmeData)
+    setGeneratedMarkdown(markdown)
+    setActiveTab("preview")
   }
 
   return (
